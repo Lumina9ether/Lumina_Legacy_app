@@ -1,0 +1,6 @@
+services:
+- type: web
+  name: lumina-voice-app
+  env: python
+  buildCommand: "pip install -r requirements.txt"
+  startCommand: "python app.py"
