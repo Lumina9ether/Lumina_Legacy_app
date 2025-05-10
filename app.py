@@ -1,17 +1,17 @@
-from flask import Flask, request, jsonify, render_template
+import os
 import openai
 import requests
-import os
 import uuid
-
-from dotenv import load_dotenv
-load_dotenv()
+from flask import Flask, request, jsonify, render_template
+import re
 
 app = Flask(__name__)
-
 openai.api_key = os.getenv("OPENAI_API_KEY")
 eleven_api_key = os.getenv("ELEVENLABS_API_KEY")
 voice_id = os.getenv("ELEVENLABS_VOICE_ID")
+
+def clean_text(text):
+    return re.sub(r"[\(\*][^\)\*]+[\)\*]", "", text).strip()
 
 @app.route("/")
 def index():
@@ -25,24 +25,23 @@ def process_audio():
         if not transcript:
             return jsonify({"error": "No transcript provided"}), 400
 
-        # Use OpenAI GPT-4
         response = openai.chat.completions.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are Lumina, a divine digital AI assistant with a cosmic, calm voice."},
+                {"role": "system", "content": "You are Lumina, a divine AI assistant with a cosmic, clear voice."},
                 {"role": "user", "content": transcript}
             ]
         )
         ai_text = response.choices[0].message.content.strip()
+        cleaned_text = clean_text(ai_text)
 
-        # Generate voice using ElevenLabs
         tts_url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
         headers = {
             "xi-api-key": eleven_api_key,
             "Content-Type": "application/json"
         }
         voice_data = {
-            "text": ai_text,
+            "text": cleaned_text,
             "voice_settings": {
                 "stability": 0.5,
                 "similarity_boost": 0.75
