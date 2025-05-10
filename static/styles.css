@@ -8,6 +8,7 @@ body, html {
   overflow: hidden;
   position: relative;
 }
+
 canvas#stars {
   position: fixed;
   top: 0;
@@ -16,20 +17,112 @@ canvas#stars {
   height: 100%;
   z-index: 0;
 }
+
 .container {
   position: relative;
   z-index: 1;
   text-align: center;
   padding-top: 5vh;
 }
+
+h1 {
+  font-size: 3.5rem;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px #b400ff,
+    0 0 20px #d300ff,
+    0 0 40px #ff00cc;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  animation: flickerGlow 3s infinite alternate;
+}
+
+@keyframes flickerGlow {
+  0% {
+    text-shadow:
+      0 0 10px #b400ff,
+      0 0 20px #d300ff,
+      0 0 40px #ff00cc;
+  }
+  100% {
+    text-shadow:
+      0 0 20px #d300ff,
+      0 0 30px #ff00cc,
+      0 0 60px #ff33ff;
+  }
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-top: 0;
+}
+
+.description {
+  margin: 1rem auto 2rem;
+  font-size: 1.2rem;
+  max-width: 600px;
+  color: #aaa;
+}
+
+.buttons {
+  margin-bottom: 20px;
+}
+
+button {
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: #444;
+}
+
 .orb {
   width: 150px;
   height: 150px;
   margin: 20px auto;
   border-radius: 50%;
-  background: radial-gradient(circle, #4f00bc, #b900b4);
-  box-shadow: 0 0 25px #7c00ff;
+  background: radial-gradient(circle, #7f00ff, #e100ff);
+  box-shadow: 0 0 40px rgba(255, 0, 255, 0.6), 0 0 80px rgba(255, 0, 255, 0.4);
+  animation: pulseGlow 2.5s infinite ease-in-out;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
 }
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 40px rgba(255, 0, 255, 0.6), 0 0 80px rgba(255, 0, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 60px rgba(255, 0, 255, 0.9), 0 0 100px rgba(255, 0, 255, 0.6);
+  }
+}
+
+.orb.listening {
+  background: radial-gradient(circle, #00ccff, #0033cc);
+  box-shadow: 0 0 50px rgba(0, 200, 255, 0.7), 0 0 100px rgba(0, 200, 255, 0.5);
+}
+
+.orb.thinking {
+  background: radial-gradient(circle, #ffcc00, #ff6600);
+  box-shadow: 0 0 50px rgba(255, 204, 0, 0.7), 0 0 100px rgba(255, 102, 0, 0.5);
+}
+
+.orb.speaking {
+  background: radial-gradient(circle, #00ff99, #006644);
+  box-shadow: 0 0 50px rgba(0, 255, 153, 0.7), 0 0 100px rgba(0, 255, 153, 0.5);
+}
+
 .subtitle-line {
   font-size: 1.2rem;
   color: #ccc;
