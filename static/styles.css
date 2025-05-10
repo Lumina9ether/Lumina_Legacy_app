@@ -40,16 +40,10 @@ h1 {
 
 @keyframes flickerGlow {
   0% {
-    text-shadow:
-      0 0 10px #b400ff,
-      0 0 20px #d300ff,
-      0 0 40px #ff00cc;
+    text-shadow: 0 0 10px #b400ff, 0 0 20px #d300ff, 0 0 40px #ff00cc;
   }
   100% {
-    text-shadow:
-      0 0 20px #d300ff,
-      0 0 30px #ff00cc,
-      0 0 60px #ff33ff;
+    text-shadow: 0 0 20px #d300ff, 0 0 30px #ff00cc, 0 0 60px #ff33ff;
   }
 }
 
