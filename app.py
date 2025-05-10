@@ -10,6 +10,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 eleven_api_key = os.getenv("ELEVENLABS_API_KEY")
 voice_id = os.getenv("ELEVENLABS_VOICE_ID")
 
+# ✅ Corrected punctuation filter
 def clean_text(text):
     return re.sub(r"[\(\*][^\)\*]+[\)\*]", "", text).strip()
 
@@ -25,6 +26,7 @@ def process_audio():
         if not transcript:
             return jsonify({"error": "No transcript provided"}), 400
 
+        # 🌟 Generate AI response
         response = openai.chat.completions.create(
             model="gpt-4",
             messages=[
@@ -35,6 +37,7 @@ def process_audio():
         ai_text = response.choices[0].message.content.strip()
         cleaned_text = clean_text(ai_text)
 
+        # 🔊 Use ElevenLabs to generate voice
         tts_url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
         headers = {
             "xi-api-key": eleven_api_key,
@@ -52,6 +55,7 @@ def process_audio():
         if voice_response.status_code != 200:
             return jsonify({"error": "Voice generation failed"}), 500
 
+        # 🛠️ Save mp3 response
         audio_filename = f"lumina_response_{uuid.uuid4().hex}.mp3"
         audio_path = os.path.join("static", audio_filename)
         with open(audio_path, "wb") as f:
