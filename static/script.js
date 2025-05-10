@@ -1,4 +1,3 @@
-
 const startBtn = document.getElementById("start-btn");
 const stopBtn = document.getElementById("stop-btn");
 const orb = document.getElementById("orb");
