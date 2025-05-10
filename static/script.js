@@ -1,3 +1,4 @@
+
 const startBtn = document.getElementById("start-btn");
 const stopBtn = document.getElementById("stop-btn");
 const orb = document.getElementById("orb");
@@ -9,7 +10,9 @@ let isRecognizing = false;
 let autoListen = true;
 
 function setOrbState(state) {
-  orb.className = 'orb ' + state;
+  if (orb) {
+    orb.className = 'orb ' + state;
+  }
 }
 
 function initializeRecognition() {
